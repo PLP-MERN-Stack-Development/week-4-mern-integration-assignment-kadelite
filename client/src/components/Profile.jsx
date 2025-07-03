@@ -22,18 +22,18 @@ const Profile = () => {
   if (loading) return <div>Loading profile...</div>;
 
   return (
-    <div>
-      <h2>Profile</h2>
-      <p><strong>Name:</strong> {user.name}</p>
-      <p><strong>Email:</strong> {user.email}</p>
-      <h3>Your Posts</h3>
+    <div className="max-w-xl mx-auto bg-white p-6 rounded shadow">
+      <h2 className="text-2xl font-bold mb-4">Profile</h2>
+      <p className="mb-2"><strong>Name:</strong> {user.name}</p>
+      <p className="mb-4"><strong>Email:</strong> {user.email}</p>
+      <h3 className="text-lg font-semibold mb-2">Your Posts</h3>
       {posts.length === 0 ? (
-        <p>You have not created any posts yet.</p>
+        <p className="text-gray-500">You have not created any posts yet.</p>
       ) : (
-        <ul>
+        <ul className="divide-y divide-gray-200 bg-gray-50 rounded">
           {posts.map(post => (
-            <li key={post._id}>
-              <Link to={`/posts/${post._id}`}>{post.title}</Link>
+            <li key={post._id} className="px-4 py-2">
+              <Link to={`/posts/${post._id}`} className="text-blue-700 hover:underline">{post.title}</Link>
             </li>
           ))}
         </ul>

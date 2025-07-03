@@ -91,9 +91,9 @@ const PostForm = ({ onPostCreated }) => {
   };
 
   return (
-    <div>
-      <h2>{id ? 'Edit Post' : 'Create Post'}</h2>
-      {error && <div style={{ color: 'red' }}>{error}</div>}
+    <div className="max-w-xl mx-auto bg-white p-6 rounded shadow">
+      <h2 className="text-xl font-bold mb-4">{id ? 'Edit Post' : 'Create Post'}</h2>
+      {error && <div className="text-red-600 mb-2">{error}</div>}
       <Formik
         enableReinitialize
         initialValues={initialValues}
@@ -101,32 +101,32 @@ const PostForm = ({ onPostCreated }) => {
         onSubmit={handleSubmit}
       >
         {({ isSubmitting }) => (
-          <Form>
+          <Form className="flex flex-col gap-4">
             <div>
-              <label>Title:</label>
-              <Field name="title" />
-              <ErrorMessage name="title" component="div" style={{ color: 'red' }} />
+              <label className="block font-medium mb-1">Title:</label>
+              <Field name="title" className="border rounded px-3 py-2 w-full" />
+              <ErrorMessage name="title" component="div" className="text-red-500 text-sm mt-1" />
             </div>
             <div>
-              <label>Content:</label>
-              <Field as="textarea" name="content" />
-              <ErrorMessage name="content" component="div" style={{ color: 'red' }} />
+              <label className="block font-medium mb-1">Content:</label>
+              <Field as="textarea" name="content" className="border rounded px-3 py-2 w-full min-h-[100px]" />
+              <ErrorMessage name="content" component="div" className="text-red-500 text-sm mt-1" />
             </div>
             <div>
-              <label>Category:</label>
-              <Field as="select" name="category">
+              <label className="block font-medium mb-1">Category:</label>
+              <Field as="select" name="category" className="border rounded px-3 py-2 w-full">
                 <option value="">Select category</option>
                 {categories.map(cat => (
                   <option key={cat._id} value={cat._id}>{cat.name}</option>
                 ))}
               </Field>
-              <ErrorMessage name="category" component="div" style={{ color: 'red' }} />
+              <ErrorMessage name="category" component="div" className="text-red-500 text-sm mt-1" />
             </div>
             <div>
-              <label>Featured Image:</label>
-              <input type="file" accept="image/*" onChange={e => setFeaturedImage(e.target.files[0])} />
+              <label className="block font-medium mb-1">Featured Image:</label>
+              <input type="file" accept="image/*" onChange={e => setFeaturedImage(e.target.files[0])} className="block w-full text-sm text-gray-700" />
             </div>
-            <button type="submit" disabled={isSubmitting}>
+            <button type="submit" disabled={isSubmitting} className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded disabled:opacity-50">
               {isSubmitting ? 'Saving...' : (id ? 'Update' : 'Create')}
             </button>
           </Form>

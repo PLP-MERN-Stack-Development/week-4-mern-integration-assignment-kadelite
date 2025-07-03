@@ -59,51 +59,43 @@ const PostList = () => {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div>
-      <h2>All Posts</h2>
+    <div className="max-w-2xl mx-auto">
+      <h2 className="text-2xl font-bold mb-4">All Posts</h2>
       <PostForm onPostCreated={handlePostCreated} />
-      <div style={{ marginBottom: '1rem' }}>
+      <div className="flex flex-col sm:flex-row gap-2 mb-4 items-center">
         <input
           type="text"
           placeholder="Search posts..."
           value={search}
           onChange={handleSearchChange}
-          style={{ marginRight: '1rem' }}
+          className="border rounded px-3 py-2 w-full sm:w-auto"
         />
-        <select value={category} onChange={handleCategoryChange}>
+        <select value={category} onChange={handleCategoryChange} className="border rounded px-3 py-2">
           <option value="">All Categories</option>
           {categories.map(cat => (
             <option key={cat._id} value={cat._id}>{cat.name}</option>
           ))}
         </select>
       </div>
-      <ul>
+      <ul className="divide-y divide-gray-200 bg-white rounded shadow">
         {posts.map(post => (
-          <li key={post._id}>
-            <Link to={`/posts/${post._id}`}>{post.title}</Link>
+          <li key={post._id} className="flex items-center justify-between px-4 py-3 hover:bg-gray-50">
+            <Link to={`/posts/${post._id}`} className="text-blue-700 font-medium hover:underline">{post.title}</Link>
             {user && (
-              <>
+              <div className="flex gap-2">
                 {user._id === (post.author?._id || post.author) && (
-                  <Link to={`/edit/${post._id}`} style={{ marginLeft: 8, color: 'blue' }}>
-                    Edit
-                  </Link>
+                  <Link to={`/edit/${post._id}`} className="text-blue-500 hover:underline">Edit</Link>
                 )}
-                <button onClick={() => handleDelete(post._id)} style={{ marginLeft: 8, color: 'red' }}>
-                  Delete
-                </button>
-              </>
+                <button onClick={() => handleDelete(post._id)} className="text-red-500 hover:underline">Delete</button>
+              </div>
             )}
           </li>
         ))}
       </ul>
-      <div style={{ marginTop: '1rem' }}>
-        <button onClick={() => setPage(page - 1)} disabled={page === 1}>
-          Previous
-        </button>
-        <span style={{ margin: '0 1rem' }}>Page {page} of {totalPages}</span>
-        <button onClick={() => setPage(page + 1)} disabled={page === totalPages}>
-          Next
-        </button>
+      <div className="flex items-center justify-center gap-4 mt-6">
+        <button onClick={() => setPage(page - 1)} disabled={page === 1} className="px-3 py-1 rounded bg-gray-200 disabled:opacity-50">Previous</button>
+        <span className="text-gray-700">Page {page} of {totalPages}</span>
+        <button onClick={() => setPage(page + 1)} disabled={page === totalPages} className="px-3 py-1 rounded bg-gray-200 disabled:opacity-50">Next</button>
       </div>
     </div>
   );

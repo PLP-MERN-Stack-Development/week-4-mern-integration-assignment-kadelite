@@ -25,32 +25,32 @@ const RegisterForm = () => {
   };
 
   return (
-    <div>
-      <h2>Register</h2>
+    <div className="max-w-md mx-auto bg-white p-6 rounded shadow">
+      <h2 className="text-xl font-bold mb-4">Register</h2>
       <Formik
         initialValues={{ name: '', email: '', password: '' }}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
         {({ isSubmitting, errors }) => (
-          <Form>
-            {errors.general && <div style={{ color: 'red' }}>{errors.general}</div>}
+          <Form className="flex flex-col gap-4">
+            {errors.general && <div className="text-red-600 mb-2">{errors.general}</div>}
             <div>
-              <label>Name:</label>
-              <Field name="name" />
-              <ErrorMessage name="name" component="div" style={{ color: 'red' }} />
+              <label className="block font-medium mb-1">Name:</label>
+              <Field name="name" className="border rounded px-3 py-2 w-full" />
+              <ErrorMessage name="name" component="div" className="text-red-500 text-sm mt-1" />
             </div>
             <div>
-              <label>Email:</label>
-              <Field name="email" type="email" />
-              <ErrorMessage name="email" component="div" style={{ color: 'red' }} />
+              <label className="block font-medium mb-1">Email:</label>
+              <Field name="email" type="email" className="border rounded px-3 py-2 w-full" />
+              <ErrorMessage name="email" component="div" className="text-red-500 text-sm mt-1" />
             </div>
             <div>
-              <label>Password:</label>
-              <Field name="password" type="password" />
-              <ErrorMessage name="password" component="div" style={{ color: 'red' }} />
+              <label className="block font-medium mb-1">Password:</label>
+              <Field name="password" type="password" className="border rounded px-3 py-2 w-full" />
+              <ErrorMessage name="password" component="div" className="text-red-500 text-sm mt-1" />
             </div>
-            <button type="submit" disabled={isSubmitting}>Register</button>
+            <button type="submit" disabled={isSubmitting} className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded disabled:opacity-50">Register</button>
           </Form>
         )}
       </Formik>
