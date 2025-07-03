@@ -50,6 +50,9 @@ const LoginForm = () => {
           </Form>
         )}
       </Formik>
+      <div className="text-center mt-4">
+        <a href="/forgot-password" className="text-blue-600 hover:underline">Forgot Password?</a>
+      </div>
     </div>
   );
 };

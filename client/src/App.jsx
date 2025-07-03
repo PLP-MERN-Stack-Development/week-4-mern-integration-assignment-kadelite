@@ -8,6 +8,8 @@ import LoginForm from './components/LoginForm.jsx';
 import RegisterForm from './components/RegisterForm.jsx';
 import Profile from './components/Profile.jsx';
 import Notification from './components/Notification.jsx';
+import ForgotPassword from './components/ForgotPassword.jsx';
+import ResetPassword from './components/ResetPassword.jsx';
 
 const App = () => {
   const [notification, setNotification] = useState({ message: '', type: '' });
@@ -28,6 +30,8 @@ const App = () => {
           <Route path="/login" element={<LoginForm />} />
           <Route path="/register" element={<RegisterForm />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
         </Routes>
       </div>
       <Notification message={notification.message} type={notification.type} onClose={() => setNotification({ message: '', type: '' })} />
