@@ -18,22 +18,24 @@ const Profile = () => {
     }
   }, [user]);
 
-  if (!user) return <div>Please log in to view your profile.</div>;
-  if (loading) return <div>Loading profile...</div>;
+  if (!user) return <div className="text-center py-8 text-gray-500">Please log in to view your profile.</div>;
+  if (loading) return <div className="text-center py-8 text-gray-500">Loading profile...</div>;
 
   return (
-    <div className="max-w-xl mx-auto bg-white p-6 rounded shadow">
+    <div className="bg-white rounded shadow p-6 max-w-xl mx-auto">
       <h2 className="text-2xl font-bold mb-4">Profile</h2>
-      <p className="mb-2"><strong>Name:</strong> {user.name}</p>
-      <p className="mb-4"><strong>Email:</strong> {user.email}</p>
-      <h3 className="text-lg font-semibold mb-2">Your Posts</h3>
+      <div className="mb-4">
+        <p><span className="font-semibold">Name:</span> {user.name}</p>
+        <p><span className="font-semibold">Email:</span> {user.email}</p>
+      </div>
+      <h3 className="text-xl font-semibold mb-2">Your Posts</h3>
       {posts.length === 0 ? (
         <p className="text-gray-500">You have not created any posts yet.</p>
       ) : (
-        <ul className="divide-y divide-gray-200 bg-gray-50 rounded">
+        <ul className="divide-y divide-gray-200">
           {posts.map(post => (
-            <li key={post._id} className="px-4 py-2">
-              <Link to={`/posts/${post._id}`} className="text-blue-700 hover:underline">{post.title}</Link>
+            <li key={post._id} className="py-2">
+              <Link to={`/posts/${post._id}`} className="text-blue-700 hover:underline font-medium">{post.title}</Link>
             </li>
           ))}
         </ul>

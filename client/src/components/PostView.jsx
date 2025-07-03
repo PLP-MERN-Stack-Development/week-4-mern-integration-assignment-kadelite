@@ -55,26 +55,31 @@ const PostView = () => {
     }
   };
 
-  if (loading) return <div>Loading post...</div>;
-  if (error) return <div>Error: {error}</div>;
-  if (!post) return <div>Post not found</div>;
+  if (loading) return <div className="text-center py-8 text-gray-500">Loading post...</div>;
+  if (error) return <div className="text-center py-8 text-red-500">Error: {error}</div>;
+  if (!post) return <div className="text-center py-8 text-gray-500">Post not found</div>;
 
   return (
-    <div className="max-w-2xl mx-auto bg-white p-6 rounded shadow">
-      <h2 className="text-2xl font-bold mb-2">{post.title}</h2>
-      <p className="mb-2 text-gray-700">{post.content}</p>
-      <p className="text-sm text-gray-500 mb-1"><strong>Category:</strong> {post.category?.name || post.category}</p>
-      <p className="text-sm text-gray-500 mb-4"><strong>Author:</strong> {post.author?.name || post.author}</p>
-      <hr className="my-4" />
-      <h3 className="text-lg font-semibold mb-2">Comments</h3>
+    <div className="bg-white rounded shadow p-6 max-w-2xl mx-auto">
+      <h2 className="text-3xl font-bold mb-2">{post.title}</h2>
+      <div className="text-gray-600 mb-2">
+        <span className="mr-4"><strong>Category:</strong> {post.category?.name || post.category}</span>
+        <span><strong>Author:</strong> {post.author?.name || post.author}</span>
+      </div>
+      <p className="mb-6 text-gray-800 whitespace-pre-line">{post.content}</p>
+      <hr className="my-6" />
+      <h3 className="text-xl font-semibold mb-2">Comments</h3>
       {post.comments && post.comments.length > 0 ? (
-        <ul className="space-y-2 mb-4">
+        <ul className="space-y-3 mb-4">
           {post.comments.map((c, idx) => (
-            <li key={idx} className="bg-gray-100 rounded px-3 py-2">
-              <strong className="text-blue-700">{c.user?.name || c.user || 'User'}:</strong> {c.content}
-              <span className="text-xs text-gray-500 ml-2">
-                {c.createdAt ? new Date(c.createdAt).toLocaleString() : ''}
-              </span>
+            <li key={idx} className="bg-gray-100 rounded p-3">
+              <div className="text-sm text-gray-700 mb-1">
+                <strong>{c.user?.name || c.user || 'User'}</strong>
+                <span className="ml-2 text-xs text-gray-500">
+                  {c.createdAt ? new Date(c.createdAt).toLocaleString() : ''}
+                </span>
+              </div>
+              <div className="text-gray-800">{c.content}</div>
             </li>
           ))}
         </ul>
@@ -82,16 +87,16 @@ const PostView = () => {
         <p className="text-gray-500 mb-4">No comments yet.</p>
       )}
       {user ? (
-        <form onSubmit={handleCommentSubmit} className="flex flex-col gap-2 mt-2">
+        <form onSubmit={handleCommentSubmit} className="mt-4">
           <textarea
             value={comment}
             onChange={e => setComment(e.target.value)}
             placeholder="Add a comment..."
             rows={3}
-            className="border rounded px-3 py-2 w-full"
+            className="w-full border border-gray-300 rounded px-3 py-2 mb-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
-          {commentError && <div className="text-red-500 text-sm">{commentError}</div>}
-          <button type="submit" disabled={submitting} className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded disabled:opacity-50">
+          {commentError && <div className="text-red-500 mb-2">{commentError}</div>}
+          <button type="submit" disabled={submitting} className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
             {submitting ? 'Posting...' : 'Post Comment'}
           </button>
         </form>

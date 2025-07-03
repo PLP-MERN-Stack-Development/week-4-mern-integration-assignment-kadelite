@@ -13,22 +13,26 @@ const Navigation = () => {
   };
 
   return (
-    <nav style={{ padding: '1rem', background: '#f5f5f5', marginBottom: '2rem' }}>
-      <Link to="/" style={{ marginRight: '1rem' }}>Posts</Link>
-      <Link to="/create" style={{ marginRight: '1rem' }}>Create Post</Link>
-      <Link to="/categories" style={{ marginRight: '1rem' }}>Categories</Link>
-      {user ? (
-        <>
-          <span style={{ marginRight: '1rem' }}>Hello, {user.name || user.email}</span>
-          <Link to="/profile" style={{ marginRight: '1rem' }}>Profile</Link>
-          <button onClick={handleLogout}>Logout</button>
-        </>
-      ) : (
-        <>
-          <Link to="/login" style={{ marginRight: '1rem' }}>Login</Link>
-          <Link to="/register">Register</Link>
-        </>
-      )}
+    <nav className="bg-gray-900 text-white px-4 py-3 flex items-center justify-between mb-8 shadow">
+      <div className="flex items-center gap-4">
+        <Link to="/" className="font-bold text-lg hover:text-blue-400 transition">Posts</Link>
+        <Link to="/create" className="hover:text-blue-400 transition">Create Post</Link>
+        <Link to="/categories" className="hover:text-blue-400 transition">Categories</Link>
+      </div>
+      <div className="flex items-center gap-4">
+        {user ? (
+          <>
+            <span className="text-sm">Hello, <span className="font-semibold">{user.name || user.email}</span></span>
+            <Link to="/profile" className="hover:text-blue-400 transition">Profile</Link>
+            <button onClick={handleLogout} className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded transition">Logout</button>
+          </>
+        ) : (
+          <>
+            <Link to="/login" className="hover:text-blue-400 transition">Login</Link>
+            <Link to="/register" className="hover:text-blue-400 transition">Register</Link>
+          </>
+        )}
+      </div>
     </nav>
   );
 };

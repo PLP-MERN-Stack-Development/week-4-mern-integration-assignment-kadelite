@@ -24,27 +24,29 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto bg-white p-6 rounded shadow">
-      <h2 className="text-xl font-bold mb-4">Login</h2>
+    <div className="bg-white rounded shadow p-6 max-w-md mx-auto mt-8">
+      <h2 className="text-2xl font-bold mb-4">Login</h2>
       <Formik
         initialValues={{ email: '', password: '' }}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
         {({ isSubmitting, errors }) => (
-          <Form className="flex flex-col gap-4">
-            {errors.general && <div className="text-red-600 mb-2">{errors.general}</div>}
+          <Form className="space-y-4">
+            {errors.general && <div className="text-red-500 mb-2">{errors.general}</div>}
             <div>
-              <label className="block font-medium mb-1">Email:</label>
-              <Field name="email" type="email" className="border rounded px-3 py-2 w-full" />
+              <label className="block mb-1 font-medium">Email:</label>
+              <Field name="email" type="email" className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
               <ErrorMessage name="email" component="div" className="text-red-500 text-sm mt-1" />
             </div>
             <div>
-              <label className="block font-medium mb-1">Password:</label>
-              <Field name="password" type="password" className="border rounded px-3 py-2 w-full" />
+              <label className="block mb-1 font-medium">Password:</label>
+              <Field name="password" type="password" className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
               <ErrorMessage name="password" component="div" className="text-red-500 text-sm mt-1" />
             </div>
-            <button type="submit" disabled={isSubmitting} className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded disabled:opacity-50">Login</button>
+            <button type="submit" disabled={isSubmitting} className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded w-full">
+              {isSubmitting ? 'Logging in...' : 'Login'}
+            </button>
           </Form>
         )}
       </Formik>

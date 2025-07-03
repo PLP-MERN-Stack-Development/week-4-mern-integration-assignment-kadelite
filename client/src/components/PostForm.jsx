@@ -91,9 +91,9 @@ const PostForm = ({ onPostCreated }) => {
   };
 
   return (
-    <div className="max-w-xl mx-auto bg-white p-6 rounded shadow">
-      <h2 className="text-xl font-bold mb-4">{id ? 'Edit Post' : 'Create Post'}</h2>
-      {error && <div className="text-red-600 mb-2">{error}</div>}
+    <div className="bg-white rounded shadow p-6 max-w-xl mx-auto">
+      <h2 className="text-2xl font-bold mb-4">{id ? 'Edit Post' : 'Create Post'}</h2>
+      {error && <div className="text-red-500 mb-4">{error}</div>}
       <Formik
         enableReinitialize
         initialValues={initialValues}
@@ -101,20 +101,20 @@ const PostForm = ({ onPostCreated }) => {
         onSubmit={handleSubmit}
       >
         {({ isSubmitting }) => (
-          <Form className="flex flex-col gap-4">
+          <Form className="space-y-4">
             <div>
-              <label className="block font-medium mb-1">Title:</label>
-              <Field name="title" className="border rounded px-3 py-2 w-full" />
+              <label className="block mb-1 font-medium">Title:</label>
+              <Field name="title" className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
               <ErrorMessage name="title" component="div" className="text-red-500 text-sm mt-1" />
             </div>
             <div>
-              <label className="block font-medium mb-1">Content:</label>
-              <Field as="textarea" name="content" className="border rounded px-3 py-2 w-full min-h-[100px]" />
+              <label className="block mb-1 font-medium">Content:</label>
+              <Field as="textarea" name="content" className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
               <ErrorMessage name="content" component="div" className="text-red-500 text-sm mt-1" />
             </div>
             <div>
-              <label className="block font-medium mb-1">Category:</label>
-              <Field as="select" name="category" className="border rounded px-3 py-2 w-full">
+              <label className="block mb-1 font-medium">Category:</label>
+              <Field as="select" name="category" className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
                 <option value="">Select category</option>
                 {categories.map(cat => (
                   <option key={cat._id} value={cat._id}>{cat.name}</option>
@@ -123,10 +123,10 @@ const PostForm = ({ onPostCreated }) => {
               <ErrorMessage name="category" component="div" className="text-red-500 text-sm mt-1" />
             </div>
             <div>
-              <label className="block font-medium mb-1">Featured Image:</label>
+              <label className="block mb-1 font-medium">Featured Image:</label>
               <input type="file" accept="image/*" onChange={e => setFeaturedImage(e.target.files[0])} className="block w-full text-sm text-gray-700" />
             </div>
-            <button type="submit" disabled={isSubmitting} className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded disabled:opacity-50">
+            <button type="submit" disabled={isSubmitting} className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
               {isSubmitting ? 'Saving...' : (id ? 'Update' : 'Create')}
             </button>
           </Form>
