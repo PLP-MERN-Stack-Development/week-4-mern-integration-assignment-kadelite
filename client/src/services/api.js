@@ -41,10 +41,13 @@ api.interceptors.response.use(
 // Post API services
 export const postService = {
   // Get all posts with optional pagination and filters
-  getAllPosts: async (page = 1, limit = 10, category = null) => {
+  getAllPosts: async (page = 1, limit = 10, category = null, search = '') => {
     let url = `/posts?page=${page}&limit=${limit}`;
     if (category) {
       url += `&category=${category}`;
+    }
+    if (search) {
+      url += `&search=${encodeURIComponent(search)}`;
     }
     const response = await api.get(url);
     return response.data;
@@ -56,16 +59,38 @@ export const postService = {
     return response.data;
   },
 
-  // Create a new post
+  // Create a new post (with image upload support)
   createPost: async (postData) => {
-    const response = await api.post('/posts', postData);
-    return response.data;
+    if (postData.featuredImage instanceof File) {
+      const formData = new FormData();
+      Object.entries(postData).forEach(([key, value]) => {
+        formData.append(key, value);
+      });
+      const response = await api.post('/posts', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
+      return response.data;
+    } else {
+      const response = await api.post('/posts', postData);
+      return response.data;
+    }
   },
 
-  // Update an existing post
+  // Update an existing post (with image upload support)
   updatePost: async (id, postData) => {
-    const response = await api.put(`/posts/${id}`, postData);
-    return response.data;
+    if (postData.featuredImage instanceof File) {
+      const formData = new FormData();
+      Object.entries(postData).forEach(([key, value]) => {
+        formData.append(key, value);
+      });
+      const response = await api.put(`/posts/${id}`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
+      return response.data;
+    } else {
+      const response = await api.put(`/posts/${id}`, postData);
+      return response.data;
+    }
   },
 
   // Delete a post
@@ -115,7 +140,9 @@ export const authService = {
     const response = await api.post('/auth/login', credentials);
     if (response.data.token) {
       localStorage.setItem('token', response.data.token);
-      localStorage.setItem('user', JSON.stringify(response.data.user));
+      if (response.data.user) {
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+      }
     }
     return response.data;
   },
